@@ -3,7 +3,6 @@ RillServer是一套基于skynet的通用游戏服务端框架，适合大作战�
 
 总要取个名字，Rill小河，喻意服务畅通无阻，亦表积流成海。假以时日，厚积薄发。
 
-[原始仓库](https://github.com/zhanjunxiong/zServer)
 
 ##整体架构
 RillServer采用传统c++服务器的架构方案。服务为1:1对应(agent room) 原作者比较喜欢1：N 请自行选择
