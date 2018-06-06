@@ -5,7 +5,7 @@ RillServer是一套基于skynet的通用游戏服务端框架，适合大作战�
 
 
 ##整体架构
-RillServer采用传统c++服务器的架构方案。服务为1:1对应(agent room) 原作者比较喜欢1：N 请自行选择
+RillServer采用传统c++服务器的架构方案。服务为1:1对应(agent room) 
 
 ###架构图
 整体架构如下图所示，蓝色方框代表skynet节点，黄色方框代表服务，一个节点会开启game、global、login等多种服务。灰色方框代表gateway的转发范围，即客户端连上某个节点的gateway，该gateway只会将消息转发给该节点下的login和game。
