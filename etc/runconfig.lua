@@ -75,7 +75,8 @@ return {
 	},
 	--支持的游戏类型 及对应的入口文件
 	games_common = {
-		move = "libmove",  
+		move = "libmove",
+		pinchidao = "libpinchidao",  
 	},
 
 	--具体各个功能逻辑的配置
@@ -85,19 +86,20 @@ return {
 			[2] = "global2",
 		},
 	},
+	
+	--具体各个功能逻辑的配置
+	pinchidaogame = {
+		global = {
+			[1] = "global1",
+			[2] = "global2",
+		},
+	},
+
 	queryboard = {
 		global = {
 			[1] = "global1",
 			--不支持分布式
 		},
-	},
-
-	lifegame = {
-		global = {
-			[1] = "global1",
-			[2] = "global1",
-		},
-		mgr = "global1",
 	},
 	
 }

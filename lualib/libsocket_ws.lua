@@ -3,8 +3,8 @@ local wslib = {}
 --默认fin和mask
 function wslib:send_frame(fd, opcode, data)
     local finbit, mask_bit = 0x80,0
-   -- if fin then finbit = 0x80 else finbit = 0 end
-   -- if self.mask_outgoing then mask_bit = 0x80 else mask_bit = 0 end
+    -- if fin then finbit = 0x80 else finbit = 0 end
+    -- if self.mask_outgoing then mask_bit = 0x80 else mask_bit = 0 end
     local frame = string.pack("B", finbit | opcode)
     local len = #data
     if len < 126 then

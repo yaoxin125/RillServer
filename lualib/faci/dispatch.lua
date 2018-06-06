@@ -43,21 +43,21 @@ local function lua_dispatch(session, addr, cmd, ...)
 	--模块
 	local module = env.module[cmd1]
 	if type(module) ~= "table" then
-		log.info("lua_dispatch module is not table, cmd = %s.%s", cmd1, cmd2)
+		ERROR("lua_dispatch module is not table cmd:", cmd1, "subcmd:", cmd2)
 		skynet.ret()
 		return false
 	end
 	
 	local dispatch = module.dispatch
 	if type(dispatch) ~= "table" then
-		log.info("lua_dispatch dispatch is not table, cmd = %s.%s", cmd1, cmd2)
+		ERROR("lua_dispatch dispatch is not table cmd:", cmd1, "subcmd:", cmd2)
 		skynet.ret()
 		return false
 	end
 	
 	local cb = dispatch[cmd2]
 	if type(cb) ~= "function" then
-		log.info("lua_dispatch cb is not function, cmd = %s.%s", cmd1, cmd2)
+		ERROR("lua_dispatch cb is not function cmd:", cmd1, "subcmd:", cmd2)
 		skynet.ret()
 		return false
 	end

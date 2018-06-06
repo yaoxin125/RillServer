@@ -24,16 +24,16 @@ local function parse_httpheader(http_str)
     local start = 0
     local str
     i = string.find(http_str, "\r\n", i+1)
-    while true  and i ~= nil do
-       start = i + 2
-       i = string.find(http_str, "\r\n", start)
-       if i ~= nil then
+	while true  and i ~= nil do
+		start = i + 2
+		i = string.find(http_str, "\r\n", start)
+		if i ~= nil then
             str = string.sub(http_str, start, i-1)
             local key, value = string.match(str, "([%a-]+)%s*: (.*)")
 	        if key ~= nil then
                 header[key:lower()] = value
-            end
-       end
+			end
+		end
     end
 
 	return header
@@ -266,9 +266,9 @@ function gateserver.start(handler)
 		unpack = function ( msg, sz )
             local _, fd = socketdriver.unpack(msg, sz)
 			if (connection[fd] == nil ) then
-					return netpack.filter( queue, msg, sz, 1)
+				return netpack.filter( queue, msg, sz, 1)
 			elseif connection[fd].isconnect then
-					return netpack.filter( queue, msg, sz, connection[fd].iswebsocket_handeshake)
+				return netpack.filter( queue, msg, sz, connection[fd].iswebsocket_handeshake)
 			end
 			return netpack.filter( queue, msg, sz, 1)
 		end,
@@ -279,17 +279,17 @@ function gateserver.start(handler)
 			end
 		end
 	}
-
-     skynet.start(function()
-     skynet.dispatch("lua", function (_, address, cmd, ...)
-     local f = CMD[cmd]
-          if f then
-              skynet.ret(skynet.pack(f(address, ...)))
-          else
-              skynet.ret(skynet.pack(handler.command(cmd, address, ...)))
-          end
-        end)
-      end)
- end
+	
+	skynet.start(function()
+		skynet.dispatch("lua", function (_, address, cmd, ...)
+			local f = CMD[cmd]
+			if f then
+				skynet.ret(skynet.pack(f(address, ...)))
+			else
+				skynet.ret(skynet.pack(handler.command(cmd, address, ...)))
+			end
+		end)
+	end)
+end
 
 return gateserver

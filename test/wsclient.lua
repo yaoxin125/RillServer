@@ -101,10 +101,9 @@ end
 
 M.connect()
 M.send("login.login", {sdkid = 1, account = "test_003", password = "111111"})
-M.send("create_room", {game = "move"})
+M.send("create_room", {game = "pinchidao"}) --pinchidao
 socket.usleep(50)
 M.send("enter_room", {})
-
 
 M.start()
 

@@ -13,17 +13,22 @@ local log_level = {
 }
 
 local defaultLevel = tonumber(skynet.getenv "log_default_lv") or log_level.LOG_DEBUG
+local prefix = ""
+function LOG_PREFIX(pre)
+  prefix = "[" .. pre .. "]"
+end 
 
--- 错误日志 --
+--日志 --
 local function logger(str, level, color)
   return function (...)
     if level >= defaultLevel then
         local info = table.pack(...)
         info[#info+1] = "\x1b[0m"
-        skynet.error(string.format("%s%s", color, str), table.unpack(info)) 
+        skynet.error(string.format("%s%s%s", color, prefix, str), table.unpack(info)) 
     end
   end
 end
+
 
 local M = {
   TRACE = logger("[trace]", log_level.LOG_TRACE, "\x1b[35m"),

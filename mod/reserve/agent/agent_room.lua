@@ -43,9 +43,8 @@ function M.create_room(msg)
 		msg.error = "game not found"
 		return 
 	end 
-
-	create_id = libdbproxy.inc_room()  
-	lib.create(create_id)
+	create_id = 1000000--libdbproxy.inc_room()  
+	local addr = lib.create(create_id)
 end 
 
 function M.enter_room(msg)
@@ -54,10 +53,10 @@ function M.enter_room(msg)
 		return msg
 	end
 	--暂时 这样处理
-	if not msg.id and create_id then
-		msg.id = create_id
-	end 
-	
+	-- if not msg.id and create_id then
+	-- 	msg.id = create_id
+	-- end 
+	msg.id = 1000000
 	local data = {
 		uid = env.get_player().uid,
 		agent = skynet.self(),
@@ -65,7 +64,7 @@ function M.enter_room(msg)
 	}
 
 	local isok, forward, data = lib.enter(msg.id, data)
-	if isok  then
+	if isok then
 		msg.result = 0
 		room_id = msg.id
 	else
@@ -78,56 +77,10 @@ function M.leave_room(msg)
 	if not room_id then
 		return
 	end
-	-- env.service["movegame"] = nil
+
 	local uid = env.get_player().uid
     if lib.leave(room_id, uid) then
 		room_id = nil
 	end
 	return msg
 end
-
-
--- --示例1 echo
--- function M.echo(msg)
---     local cmd = msg.cmd
--- 	local str = msg.str
--- 	skynet.error("agent echo ! "..cmd.." "..str)
--- 	return msg
--- end
-
--- --示例2 name
--- function M.set_name(msg)
---     local cmd = msg.cmd
--- 	local str = msg.str
--- 	local playerdata = env.get_playerdata()
-	
--- 	skynet.error("name "..cmd.." "..(playerdata.player.name or "none"))
--- 	skynet.error("set_name "..cmd.." "..str)
--- 	skynet.error("login_time "..cmd.." "..playerdata.player.login_time)
-	
--- 	playerdata.player.name = str
-	
--- 	--msg.str="succ"
--- 	return msg
--- end
-
--- --示例3 chat
--- function M.chat(msg)
---     local cmd = msg.cmd
--- 	local str = msg.str
--- 	libcenter.broadcast(env.get_player().uid, "broadcast_msg", msg)
--- 	skynet.error("agent chat 999! "..cmd.." "..str)
--- 	return nil
--- end
-
--- --示例4 测试热更
--- local reload = require "reload"
-
--- function M.chatreload(msg)
---     local cmd = msg.cmd
--- 	local str = msg.str
--- 	--注意agent_init中require的形式
--- 	--这种热更只能更新本服
--- 	reload.loadmod("agent.agent_room")
--- 	return nil
--- end

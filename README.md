@@ -3,8 +3,10 @@ RillServer是一套基于skynet的通用游戏服务端框架，适合大作战�
 
 总要取个名字，Rill小河，喻意服务畅通无阻，亦表积流成海。假以时日，厚积薄发。
 
+[原始仓库](https://github.com/zhanjunxiong/zServer)
+
 ##整体架构
-RillServer采用传统c++服务器的架构方案。
+RillServer采用传统c++服务器的架构方案。服务为1:1对应(agent room) 原作者比较喜欢1：N 请自行选择
 
 ###架构图
 整体架构如下图所示，蓝色方框代表skynet节点，黄色方框代表服务，一个节点会开启game、global、login等多种服务。灰色方框代表gateway的转发范围，即客户端连上某个节点的gateway，该gateway只会将消息转发给该节点下的login和game。
@@ -74,7 +76,7 @@ RillServer采用传统c++服务器的架构方案。
 
 ##示例
 * 示例1 echo
-	     服务端./start.sh 即可运行服务端（单阶段）
+	    服务端./start_node1.sh 即可运行服务端（单阶段）
 	    客户端 cd test ../skynet/3rd/lua/lua 1-echo.lua
 * 示例2 name  
         数据库保存测试
@@ -104,15 +106,14 @@ RillServer采用传统c++服务器的架构方案。
 *  [优化] game改成agentpool那样的，按需开启
 *  [优化] 玩家存储：加一层redis
 *  [必须] web鉴权
-*  [必须] 未测试，mysqldb 修改成mongodb的形式。
+*  [必须] 未测试 mongodb  修改成mysqldb的形式。
 *  [优化] web单独提取
 *  [优化] 提取修改skynet的部分，不要修改skynet所有源码
-*  [优化] 日志输出弄好看一点
 *  [优化] log功能
 *  [优化] 同一账号快速登录会出现问题
 *  [bug]  watch game列表，recmmad列表（可能出错）
 *  [bug]  大作战高并发下，不发送sync协议
-  
+
 
 ##已经发现的注意点
 bson：bson会把key都存为string，读取时要tonumber处理

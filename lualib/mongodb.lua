@@ -10,8 +10,9 @@ mongodb.__index = mongodb
 
 function mongodb:start(conf)
     local host = conf.host
+    local port = conf.port
     local db_name = conf.db_name
-    local db_client = mongo.client({host = host})
+    local db_client = mongo.client({host = host, port = port})
     local db = db_client[db_name]
 	
 	local o = {db = db}
@@ -28,6 +29,11 @@ function mongodb:find(cname, selector, field_selector)
 	local db = self.db
 	return db[cname]:find(selector, field_selector)
 end
+
+-- function mongodb:findAndModify(cname, selector, field_selector)
+-- 	local db = self.db
+-- 	return db[cname]:findAndModify(selector, field_selector)
+-- end 
 
 local function db_help(db, cmd, cname, ...)
     local c = db[cname]

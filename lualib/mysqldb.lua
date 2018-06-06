@@ -154,7 +154,7 @@ function mysqldb:alter(cname, selector)
 
     local t = nil
     for k, v in pairs(selector) do
-         if type(k) == "string" then
+        if type(k) == "string" then
             if not desc[k] then
                 t = t or {}
                 if type(v) == "string" then

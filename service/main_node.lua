@@ -85,19 +85,6 @@ local function start_login()
 	end
 end
 
--- local function start_game()
--- 	--开启game服务
--- 	for i,v in pairs(servconf.game) do
--- 		local name = string.format("game%d", i)
--- 		if nodename == v.node then
--- 			local p = skynet.newservice("game", "game", i)
--- 		else
--- 			local proxy = cluster.proxy(v.node, name)
--- 			skynet.name(name, proxy)
--- 		end
--- 	end
--- end
-
 local function start_dbproxy()
 	for i,v in pairs(servconf.dbproxy) do
 		local name = string.format("dbproxy%d", i)

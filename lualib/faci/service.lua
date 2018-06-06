@@ -29,6 +29,8 @@ local function init()
 	skynet.name(name, skynet.self())
 	--设置
 	log.set_name(name)
+	LOG_PREFIX(name)
+	
 	--全局变量
 	_G["env"] = env
 	_G["log"] = log
