@@ -14,10 +14,12 @@ local function init()
     end
 end
 
-local next_id = 1
+local next_id = 0
 local function next_dbproxy()
     next_id = next_id + 1
-    next_id = next_id % MAX_DBPROXY_COUNT + 1
+    if next_id > MAX_DBPROXY_COUNT then
+        next_id = 1
+    end
     return dbproxy[next_id]
 end
 
